@@ -1,2 +1,60 @@
-<h1>holy shit it works</h1>
-<p>Testing</p>
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div>
+        <div>
+            <input type="file" id="myfile" name="myfile" accept="text/xml">Cargar Archivo
+        <div>
+            <label>Peticiones: </label>
+            <input type="radio" id="consultar" name="peticion" value="consultar">
+            <label>Consultar Datos</label> 
+            <input type="radio" id="filtrar0" name="peticion" value="filtrar0">
+            <label>Filtrar informacion por fecha y usuario que reporta</label> 
+            <input type="radio" id="filtrar1" name="peticion" value="filtrar1">
+            <label>Filtrar por fecha y codigo de error</label> 
+            <input type="date" id="fecha" name="fecha">
+        </div>
+        <div>
+            <button type="button">Ayuda</button>
+        </div>
+
+    </div>
+    <div class="display">
+        <div>
+            <button type="button">Enviar</button>
+            <div>
+                <textarea class="display-text" id="text_entrada" name="text_entrada" rows="40" cols="75"
+                    readonly="true"></textarea>
+            </div>
+
+        </div>
+        <div>
+            <button type="button">Reset</button>
+            <div>
+                <textarea class="display-text" id="text_salida" name="text_salida" rows="40" cols="75"
+                    readonly="true"></textarea>
+            </div>
+        </div>
+    </div>
+    <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+    <script src="myScripts.js" async defer></script>
+</body>
+
+</html>

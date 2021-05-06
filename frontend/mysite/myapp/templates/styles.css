@@ -1,0 +1,11 @@
+.display {
+    display: flex;
+}
+
+.display-text {
+    margin: 15px;
+}
+
+button{
+    margin: 10px;
+}

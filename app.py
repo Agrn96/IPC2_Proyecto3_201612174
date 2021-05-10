@@ -1,7 +1,15 @@
+from storage import Lista_Simple
+from test import cargar_Archivo, procesar
 from types import MethodDescriptorType
 from flask import Flask, jsonify, request
+from flask_cors import CORS
 from products import products
+import xmltodict, json
+
 app = Flask(__name__)
+CORS(app)
+
+lista = Lista_Simple()
 
 if __name__ == '__main__':
     app.run(debug=True)
@@ -10,9 +18,57 @@ if __name__ == '__main__':
 def index(name):
     return '<h1>Hello {}!</h1>'.format(name)
 
-@app.route('/ping')
+@app.route('/ping') #Return xml file
 def ping():
-    return jsonify({"message": "Pong!"})
+    cargar_Archivo(lista)
+    ruta = "./env/Lib/site-packages/django/contrib/auth/templates/Salida.xml"
+    file1 = open(ruta,'r')
+    lines = file1.readlines()
+    hold = ""
+    for line in lines:
+        hold += str(line)
+    temp = {'xml':hold}
+    return jsonify(temp)
+
+@app.route('/graph1/<string:fecha>') #DATE and USERS
+def graph1(fecha):
+    ruta = "./env/Lib/site-packages/django/contrib/auth/templates/Salida.xml"
+    with open(ruta, 'r') as myfile:
+        obj = xmltodict.parse(myfile.read())
+    temp_ = str(fecha[8]) +  str(fecha[9]) + "/" + str(fecha[5]) +  str(fecha[6]) +  "/" + str(fecha[0]) + str(fecha[1]) + str(fecha[2]) + str(fecha[3])
+    print(temp_)
+    
+    x = []
+    y = []
+    for date in obj['ESTADISTICAS']['ESTADISTICA']:
+        if(str(date['FECHA']) == str(temp_)):
+            #print(date)
+            #print(date['REPORTADO_POR']['USUARIO'][0]['EMAIL'])
+            for user in date['REPORTADO_POR']['USUARIO']:
+                    x.append(user['EMAIL'])
+                    y.append(user['CANTIDAD_MENSAJES'])
+    return jsonify({'x':x, 'y':y})
+
+@app.route('/graph2/<string:fecha>') #DATE and ERRORS
+def graph2(fecha):
+    ruta = "./env/Lib/site-packages/django/contrib/auth/templates/Salida.xml"
+    with open(ruta, 'r') as myfile:
+        obj = xmltodict.parse(myfile.read())
+    temp_ = str(fecha[8]) +  str(fecha[9]) + "/" + str(fecha[5]) +  str(fecha[6]) +  "/" + str(fecha[0]) + str(fecha[1]) + str(fecha[2]) + str(fecha[3])
+    print(temp_)
+    
+    x = []
+    y = []
+    for date in obj['ESTADISTICAS']['ESTADISTICA']:
+        if(str(date['FECHA']) == temp_):
+            print(date)
+            print(date['REPORTADO_POR']['USUARIO'][0]['EMAIL'])
+            for user in date['ERRORES']['AFECTADO']:
+                    x.append(user['CODIGO'])
+                    y.append(user['CANTIDAD_MENSAJES'])
+
+    return jsonify({'x':x, 'y':y})
+
 
 @app.route('/products')
 def getProducts():

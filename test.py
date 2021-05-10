@@ -5,7 +5,7 @@ import re
 import codecs
 import xmltodict, json
 
-def cargar_Archivo(lista):
+def cargar_Archivo(lista,):
     with codecs.open(filedialog.askopenfilename(filetypes=[("Text files","*.xml")]), encoding='utf-8') as filename:
         procesar(filename, lista)
     filename.close()

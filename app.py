@@ -5,7 +5,7 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 from products import products
 import xmltodict, json
-
+import webbrowser
 app = Flask(__name__)
 CORS(app)
 
@@ -69,6 +69,17 @@ def graph2(fecha):
 
     return jsonify({'x':x, 'y':y})
 
+@app.route('/reset')
+def reset():
+    ruta = "./env/Lib/site-packages/django/contrib/auth/templates/Salida.xml"
+    with open(ruta, 'w') as myfile:
+        myfile.write("")
+    myfile.close()
+
+@app.route('/info')
+def info():
+    ruta = "ArticuloEnsayo-IPC2.pdf"
+    webbrowser.open(ruta)
 
 @app.route('/products')
 def getProducts():

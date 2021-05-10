@@ -9,8 +9,8 @@ def test(): #Date and users reported
     x = []
     y = []
     for date in obj['ESTADISTICAS']['ESTADISTICA']:
-        print(date[0][0])
-        if(date[0] == temp_):
+        print(date)
+        if(date['FECHA'] == temp_):
             print(date)
             print(date['REPORTADO_POR']['USUARIO'][0]['EMAIL'])
             for user in date['ERRORES']['AFECTADO']:
